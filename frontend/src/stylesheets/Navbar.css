@@ -1,0 +1,23 @@
+ .navbar-container{
+    display: flex;
+    height: 70px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+   font-size: 25px;
+   font-family:sans-serif;
+ }
+ .left,.right,.center{
+    display: flex;
+  
+    justify-content: space-around;
+ }
+ .center{
+    width: 45%;
+ }
+ .right{
+    width: 10%;
+ }
+ button{
+    font-size: 25px;
+ }
