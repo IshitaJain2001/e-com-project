@@ -16,14 +16,9 @@ required:[true , "name is required"]
     },
     password:{
         type:String,
-        validate(password){
-            if(!validator.isStrongPassword(password)) {
-                throw new Error("passowrd not strong")
-            }
-
-        },
+   
         required: [true, "please enter a password "],
-        minLength: [9, "Password must be at least 9 characters long"]
+        minlength: [9, "Password must be at least 9 characters long"]
     }
  })
 

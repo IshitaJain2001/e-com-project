@@ -9,7 +9,7 @@ if(!user){
 
 try {
     let hashedpassword= user.password
-  const isVerified=   bcrypt.compare(password, hashedpassword )
+  const isVerified= await  bcrypt.compare(password, hashedpassword )
   if(isVerified){
     req.body.user=user; 
   next()

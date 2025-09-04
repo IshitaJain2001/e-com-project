@@ -6,6 +6,7 @@ import Men from './components/Men.jsx'
 import Women from './components/Women.jsx'
 import Kids from './components/Kids.jsx'
 import Shop from './components/Shop.jsx'
+import Profile from './components/Profile.jsx'
 export default function App() {
   return (
     <div>
@@ -16,6 +17,7 @@ export default function App() {
             <Route  path='/Women'  element={<Women/> } />
                 <Route  path='/Kids' element={<Kids/>}/>
                     <Route  path='/Shop'  element={<Shop/>}/>
+                    <Route path='/profile' element={<Profile/>}/>
       </Routes>
     </div>
   )

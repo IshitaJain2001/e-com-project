@@ -8,12 +8,15 @@ import cookieParser from "cookie-parser";
  dotenv.config()
  connection(process.env.mongodb_uri)
  const app= express()
- app.use(cors())
+ app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}))
  app.use(cookieParser())
 app.use(express.json())
 app.use("/products", products)
 app.use("/user", userRouter)
  app.listen(process.env.PORT, ()=>{
-    console.log("server startedy");
+    console.log("server started");
     
  })
