@@ -3,11 +3,13 @@ import {model, Schema} from "mongoose"
     productName:{
         type:String,
         required:true,
-        unique:true
+        unique:true,
+        trim:true
     },
     productPrice:{
         type:Number,
-        required:true
+        required:true,
+        min:0
     },
     productImage:{
         type:String,
@@ -15,10 +17,23 @@ import {model, Schema} from "mongoose"
     },
     productCount:{
         type:Number,
+        required:true,
+        min:0
+    }, 
+    productCategory:{
+        type:String,
+        required:true,
+          enum: ["Men", "Women", "Kids"] 
+    },
+    description:{
+        type:String,
         required:true
     }
 
- })
+ },
+{
+    timestamps:true
+})
 
  const products= new model("Products", productSchema)
  export default products

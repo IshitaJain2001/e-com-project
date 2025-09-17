@@ -7,6 +7,7 @@ import Women from './components/Women.jsx'
 import Kids from './components/Kids.jsx'
 import Shop from './components/Shop.jsx'
 import Profile from './components/Profile.jsx'
+import AdminPanel from './components/AdminPanel.jsx'
 export default function App() {
   return (
     <>
@@ -18,6 +19,7 @@ export default function App() {
                 <Route  path='/Kids' element={<Kids/>}/>
                     <Route  path='/Shop'  element={<Shop/>}/>
                     <Route path='/profile' element={<Profile/>}/>
+                    <Route path='/admin' element={<AdminPanel/>}/>
       </Routes>
     </>
   )

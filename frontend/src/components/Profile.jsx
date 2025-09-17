@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import "../stylesheets/Profile.css";
 import { MdCameraEnhance } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 import { FaUser } from "react-icons/fa";
 function Profile() {
@@ -12,6 +13,7 @@ function Profile() {
   const [form, setForm] = useState({ firstName: "", lastName: "", userName: "", password: "" , picture:""});
   const [loading, setLoading] = useState(false);
   const [showSignup, setShowSignup] = useState(true);
+const navigate = useNavigate();
 
 const [attempts, setAttempts] = useState(0);
 const [lockTime, setLockTime] = useState(null);
@@ -100,6 +102,11 @@ const [lockTime, setLockTime] = useState(null);
     if (res.ok) {
       setIsLoggedIn(true);
        setAttempts(0);
+          if (data.isAdmin) {
+      
+        navigate("/admin");
+        return;
+      }
          const profileRes = await fetch("http://localhost:3000/user/getProfile", {
       method: "GET",
       credentials: "include",
