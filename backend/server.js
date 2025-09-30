@@ -6,6 +6,7 @@ import connection from "./db/db.js"
 import userRouter from "./Routers/User.js"
 import cookieParser from "cookie-parser";
 import productsRouter from "./Routers/Products.js"
+import cartRouter from "./Routers/Cart.js"
  dotenv.config()
  connection(process.env.mongodb_uri)
  const app= express()
@@ -18,6 +19,7 @@ import productsRouter from "./Routers/Products.js"
 app.use(express.json())
 app.use("/products", productsRouter)
 app.use("/user", userRouter)
+app.use("/cart", cartRouter)
  app.listen(process.env.PORT, ()=>{
     console.log("server started");
     

@@ -84,3 +84,4 @@ export async function deleteProduct(req,res){
     res.status(500).json({ error: "Failed to delete product" });
   }
 } 
+

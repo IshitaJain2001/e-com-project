@@ -8,6 +8,7 @@ import Shop from './components/Shop.jsx'
 import AdminPanel from "./components/AdminPanel";
 import ContextProvider from "./Context/contextProvider.jsx";
 import ShopCtaegory from "./components/ShopCtaegory.jsx";
+import Cart from "./components/Cart.jsx";
 
 
 
@@ -23,7 +24,7 @@ export default function App(){
             <Route path="/Shop" element={<Shop/>}/>
             <Route path="/profile" element={<Profile/>}/>
             <Route path="/admin" element={<AdminPanel/>}/>
-       
+       <Route path="/cart" element={<Cart/>}/>
 
       <Route path="/shop/:category" element={<ShopCtaegory/>}/>
            
