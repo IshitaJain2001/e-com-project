@@ -25,7 +25,7 @@ export default function Cart() {
       }
     };
     fetchCart();
-  }, [dispatch]);
+  }, []);
 
   if (loading) return <p>Loading cart...</p>;
 
@@ -76,6 +76,8 @@ export default function Cart() {
               {/* ✅ Increment Button */}
               <button
                 disabled={updatingId === p.item._id || p.item.productCount <= 0}
+                // 5
+                //5 +
                 onClick={async () => {
                   setUpdatingId(p.item._id);
                   await updateQuantity(p.item._id, "inc");
@@ -115,9 +117,9 @@ export default function Cart() {
         <p>Your cart is empty.</p>
       )}
 
-      <h3>Total Price: ₹{cart.totalPrice}</h3>
+      <h3>Total Price: ₹{cart.totalPrice}
       <h3>Total Shipping: ₹{cart.totalShipping}</h3>
-      <h2>Total: ₹{cart.totalPrice + cart.totalShipping}</h2>
+      </h3><h2>Total: ₹{cart.totalPrice + cart.totalShipping}</h2>
     </div>
   );
 }

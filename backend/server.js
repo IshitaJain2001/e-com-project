@@ -7,19 +7,21 @@ import userRouter from "./Routers/User.js"
 import cookieParser from "cookie-parser";
 import productsRouter from "./Routers/Products.js"
 import cartRouter from "./Routers/Cart.js"
+
+import orderRouter from "./Routers/Order.js"
  dotenv.config()
  connection(process.env.mongodb_uri)
  const app= express()
  app.use(cors({
-  origin: "http://localhost:5173",
-  //allowing only my frontend 
-  credentials: true
-}))
+   origin:"http://localhost:5173",
+   credentials: true
+ }))
  app.use(cookieParser())
 app.use(express.json())
 app.use("/products", productsRouter)
 app.use("/user", userRouter)
 app.use("/cart", cartRouter)
+app.use("/order", orderRouter)
  app.listen(process.env.PORT, ()=>{
     console.log("server started");
     

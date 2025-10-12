@@ -93,8 +93,6 @@ const addToCart = async (product) => {
       },
     });
 
-
-    product.productCount -= 1;
     alert("Item added to cart successfully!");
   } catch (err) {
     console.error(err);
