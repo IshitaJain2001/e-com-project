@@ -10,6 +10,7 @@ const initialState = {
     name: "",
     userName: "",
   },
+  isAdmin: false 
 };
 
 export default initialState;

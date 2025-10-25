@@ -4,6 +4,7 @@
 
 
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function AdminPanel() {
   const [products, setProducts] = useState([]);
@@ -15,6 +16,18 @@ function AdminPanel() {
     count: 0,
     category: "Men",
   });
+
+  const dispatch= useDispatch()
+
+const isAdmin=   useSelector(state=>state.isAdmin)
+  useEffect(()=>{
+    window.addEventListener("beforeunload", ()=>{
+dispatch({
+  type:"admin",
+  payload: false 
+})
+    })
+  })
 
 
   const [updatedImages, setUpdatedImages] = useState([]);
@@ -130,7 +143,12 @@ function AdminPanel() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+
+    <>
+    {
+ isAdmin?(
+
+<div style={{ padding: "20px" }}>
       <h1>🛒 Admin Panel - Product Management</h1>
       <table border="1" cellPadding="10" style={{ borderCollapse: "collapse", width: "100%" }}>
         <thead>
@@ -165,10 +183,12 @@ function AdminPanel() {
                       type="file"
                       accept="image/*"
                       onChange={(e) =>
-                        setUpdatedImages((prev) => ({
+                        setUpdatedImages((prev) => ([
+
+                        
                           ...prev,
-                          [p._id]: [e.target.files[0], prev[p._id]?.[1] || null],
-                        }))
+                        {   [p._id]: [e.target.files[0], prev[p._id]?.[0] ]},
+                        ]))
                       }
                     />
                   </div>
@@ -273,7 +293,11 @@ function AdminPanel() {
           </tr>
         </tbody>
       </table>
+      
     </div>
+ ) : <p> login as admin to proceed...</p>
+}
+     </>
   );
 }
 

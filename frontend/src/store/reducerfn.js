@@ -58,6 +58,11 @@ const reducerfn = (state = initialState, action) => {
         },
       };
 
+       case "admin":return  {
+...state,
+isAdmin: action.payload
+       }
+
     default:
       return state;
   }

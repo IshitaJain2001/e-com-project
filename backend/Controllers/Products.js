@@ -55,6 +55,8 @@ export async function updateProduct(req, res) {
     const updatedData = req.body;
 
     const existingProduct = await products.findById(id);
+    // find puri collection , {id:user.
+    // _}, findbyid 
     if (!existingProduct) return res.status(404).json({ message: "Product not found" });
 
     if (updatedData.productCount != null) {
@@ -62,6 +64,11 @@ export async function updateProduct(req, res) {
         { $unwind: "$products" },
         { $match: { "products.item": existingProduct._id } },
         { $group: { _id: null, totalQty: { $sum: "$products.qty" } } }
+        // grp  
+
+        
+
+
       ]);
       const minCount = totalInCarts[0]?.totalQty || 0;
 
@@ -95,23 +102,34 @@ export async function updateProduct(req, res) {
   }
 }
 
-// Delete product
+
 export async function deleteProduct(req, res) {
   try {
     const { id } = req.params;
-
-    // Check if product exists in any cart
     const inCarts = await Cart.find({ "products.item": id });
     if (inCarts.length > 0) {
       return res.status(400).json({ error: "Cannot delete product, it's in users' carts" });
     }
-
-    const deletedProduct = await products.findByIdAndDelete(id);
+ const deletedProduct = await products.findByIdAndDelete(id);
     if (!deletedProduct) return res.status(404).json({ message: "Product not found" });
-
-    res.status(200).json({ message: "Product deleted successfully" });
+     res.status(200).json({ message: "Product deleted successfully" });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to delete product" });
   }
 }
+   
+
+
+// {
+//   name :"abc",
+//   products:["soap", "shampoo"]
+// }
+// {
+//   name:"abc",
+//   products:"soap"
+// }
+// {
+//   name:"abc",
+//   products:"shampoo"
+// }

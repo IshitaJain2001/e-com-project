@@ -145,6 +145,10 @@ function Profile() {
         setIsLoggedIn(true);
 
         if (data.isAdmin) {
+          dispatch({
+            type:"admin",
+            payload:true 
+          })
           navigate("/admin");
           return;
         }

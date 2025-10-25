@@ -10,7 +10,11 @@ export async function addOrder(req, res) {
 
     const decoded = jwt.verify(token, process.env.secret_key);
 
-    const { products, totalAmount } = req.body;
+    const { products, totalAmount, deliveryAddress } = req.body;
+
+    if (!deliveryAddress) {
+      return res.status(400).json({ message: "Delivery address is required" });
+    }
 
     for (const item of products) {
       const product = await Product.findById(item.productId);
@@ -20,13 +24,13 @@ export async function addOrder(req, res) {
           .json({ message: `Product ${item.productId} not found` });
       }
 
-      if (product.productCount < item.qty) {
+      if (product.productCount < item.quantity) {
         return res.status(400).json({
-          message: `Insufficient stock for ${product.productName}. Available: ${product.productCount}, Requested: ${item.qty}`,
+          message: `Insufficient stock for ${product.productName}. Available: ${product.productCount}, Requested: ${item.quantity}`,
         });
       }
 
-      product.productCount -= item.qty;
+      product.productCount -= item.quantity;
       await product.save();
     }
 
@@ -34,6 +38,7 @@ export async function addOrder(req, res) {
       userId: decoded.id,
       products,
       totalAmount,
+      deliveryAddress,
     });
 
     await order.save();

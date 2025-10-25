@@ -3,11 +3,9 @@ import Product from "../Schemas/ProductSchema.js";
 
 export const addToCart = async (req, res) => {
   const userId = req.user?._id;
-  const { productId, price, shipping } = req.body;
-
-  console.log("addToCart - userId:", userId);
-  console.log("addToCart - req.user:", req.user);
-  console.log("addToCart - productId:", productId);
+  //loggedin 
+  
+  const { productId, price, shipping } = req.body
 
   if (!userId || !productId) {
     return res
@@ -121,6 +119,7 @@ export const updateCart = async (req, res) => {
         return res.status(400).json({ error: "Stock limit reached" });
       }
       productInCart.qty += 1;
+
     } else if (action === "dec") {
       productInCart.qty -= 1;
 

@@ -7,13 +7,20 @@ import userRouter from "./Routers/User.js"
 import cookieParser from "cookie-parser";
 import productsRouter from "./Routers/Products.js"
 import cartRouter from "./Routers/Cart.js"
-
 import orderRouter from "./Routers/Order.js"
+import addressRouter from "./Routers/Address.js"
+import otpRouter from "./Routers/Otp.js"
  dotenv.config()
+ 
+ // Debug: Check if environment variables are loading
+ console.log("🔍 ENV CHECK:");
+ console.log("- PORT:", process.env.PORT ? "✓ Loaded" : "✗ Missing");
+ console.log("- FAST2SMS_API_KEY:", process.env.FAST2SMS_API_KEY ? "✓ Loaded (length: " + process.env.FAST2SMS_API_KEY.length + ")" : "✗ Missing");
+ 
  connection(process.env.mongodb_uri)
  const app= express()
  app.use(cors({
-   origin:"http://localhost:5173",
+   origin:["http://localhost:5173","http://localhost:5174"],
    credentials: true
  }))
  app.use(cookieParser())
@@ -22,6 +29,8 @@ app.use("/products", productsRouter)
 app.use("/user", userRouter)
 app.use("/cart", cartRouter)
 app.use("/order", orderRouter)
+app.use("/address", addressRouter)
+app.use("/otp", otpRouter)
  app.listen(process.env.PORT, ()=>{
     console.log("server started");
     
