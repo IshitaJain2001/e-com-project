@@ -38,8 +38,7 @@ let user= await User.findById(userId)
     const existingProduct = cart.products.find(
       (p) => p.item.toString() === productId
     );
-let newCount= itemsAdded+1
-user.Cartvalue +=1 
+
 
     if (existingProduct) {
       if (existingProduct.qty + 1 > productDoc.productCount) {
@@ -54,8 +53,10 @@ user.Cartvalue +=1
         price,
         shipping,
         qty: 1,
-        itemsAdded : newCount
+     
       });
+      cart.itemsAdded +=1
+user.Cartvalue +=1 
     }
 
     cart.totalPrice = cart.products.reduce(

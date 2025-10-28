@@ -56,7 +56,7 @@ const [cart, setCart]= useState(0)
       <div className="right">
         <Link to="/cart">
           <button className={location.pathname==="/cart"?"active":""}>
-            <TiShoppingCart /><sup>{cart}</sup>
+            <TiShoppingCart /><sup>{cart || 0}</sup>
           </button>
         </Link>
         <Link to="/profile">

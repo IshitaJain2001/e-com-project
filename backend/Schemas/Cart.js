@@ -13,7 +13,8 @@ const cartSchema = new Schema(
     ],
     itemsAdded:{
       type:Number,
-      default:0
+      default:0,
+      required:true
     } , 
     totalPrice: { type: Number, default: 0 },
     totalShipping: { type: Number, default: 0 },
