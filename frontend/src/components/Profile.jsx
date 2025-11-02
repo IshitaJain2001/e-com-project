@@ -186,6 +186,9 @@ function Profile() {
     }
   };
 
+
+
+  
   const handleLogout = async () => {
     try {
       const res = await fetch("http://localhost:3000/user/logout", {

@@ -5,7 +5,7 @@ import validator from "validator";
 import cloudinary from "../config/cloudinary.js";
 import fs from "fs";
 export async function signup(req, res) {
-  const { firstName, lastName, userName, password } = req.body;
+  const { firstName, lastName, userName, password , Cartvalue} = req.body;
 
   try {
     if (!password) {
@@ -38,6 +38,7 @@ export async function signup(req, res) {
       userName,
       password: hashedPassword,
       picture: pictureUrl,
+      Cartvalue
     });
 
     await user.save();
@@ -47,16 +48,38 @@ export async function signup(req, res) {
   }
 }
 
+// export async function login(req, res) {
+//   let { user } = req.body;
+//   try {
+//     let token = await jwt.sign({ id: user._id }, process.env.secret_key, {
+//       expiresIn: "1d",
+//     });
+//     res
+//       .cookie("token", token, {
+//         secure: false,
+//       })
+//       .json({
+//         message: "loggedin successfully ",
+//         isAdmin: false,
+//         user: {
+//           id: user._id,
+//           firstName: user.firstName,
+//           lastName: user.lastName,
+//           userName: user.userName,
+//         },
+//       });
+//   } catch (error) {
+//     res.send(error);
+//   }
+// }
+
 export async function login(req, res) {
   let { user } = req.body;
   try {
     let token = await jwt.sign({ id: user._id }, process.env.secret_key, {
       expiresIn: "1d",
     });
-    res
-      .cookie("token", token, {
-        secure: false,
-      })
+    res.cookie("token", token)
       .json({
         message: "loggedin successfully ",
         isAdmin: false,
@@ -65,6 +88,7 @@ export async function login(req, res) {
           firstName: user.firstName,
           lastName: user.lastName,
           userName: user.userName,
+          Cartvalue:Cartvalue
         },
       });
   } catch (error) {
@@ -72,7 +96,10 @@ export async function login(req, res) {
   }
 }
 
+
 export async function getProfile(req, res) {
+  console.log("Cookies received:", req.cookies);
+
   try {
     const token = req.cookies.token;
     console.log(token);
@@ -83,7 +110,8 @@ export async function getProfile(req, res) {
         .json({ message: "please login first to continue" });
     }
 
-    const decodedUser = jwt.verify(token, process.env.secret_key);
+    const decodedUser =await  jwt.verify(token, process.env.secret_key);
+
     const user = await User.findById(decodedUser.id).select("-password");
 
     if (!user) {

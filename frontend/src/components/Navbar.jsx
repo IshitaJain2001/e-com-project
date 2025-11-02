@@ -8,10 +8,12 @@ import "../stylesheets/Navbar.css";
 export default function Navbar() {
   const location = useLocation();
   const dispatch = useDispatch();
- let isAdding = useSelector(state=>state.isProductAdd)
+ let status = useSelector(state=>state.isProductAdd)
   const [userName, setUserName] = useState("");
-const [cart, setCart]= useState(0)
+const [cartt, setCart]= useState(0)
   useEffect(() => {
+    console.log(status);
+    
     // Backend se login check aur user info fetch
     const fetchUser = async () => {
       try {
@@ -20,6 +22,8 @@ const [cart, setCart]= useState(0)
           credentials: "include", // cookies ke liye
         });
         const data = await res.json();
+        console.log(data);
+        
         setCart(data.Cartvalue)
         if (res.ok && data.user) {
           const name = data.user.firstName + " " + data.user.lastName;
@@ -49,7 +53,7 @@ const [cart, setCart]= useState(0)
     };
 
     fetchUser();
-  }, [ isAdding]);
+  }, [ status]);
 
   return (
     <div className='navbar-container'>
@@ -63,7 +67,7 @@ const [cart, setCart]= useState(0)
       <div className="right">
         <Link to="/cart">
           <button className={location.pathname==="/cart"?"active":""}>
-            <TiShoppingCart /><sup>{cart || 0}</sup>
+            <TiShoppingCart /><sup>{cartt || 0}</sup>
           </button>
         </Link>
         <Link to="/profile">
