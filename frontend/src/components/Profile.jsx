@@ -171,6 +171,13 @@ function Profile() {
             email: profileData.user.email,
           },
         });
+
+         dispatch({
+          type:"productAdd",
+          payload:{
+            isAdding: true
+          }
+         })
       } else {
         setAttempts((prev) => prev + 1);
         if (attempts + 1 >= 3) {

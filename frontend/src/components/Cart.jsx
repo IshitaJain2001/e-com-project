@@ -33,7 +33,7 @@ export default function Cart() {
       try {
         const res = await fetch("http://localhost:3000/cart/get", {
           method: "GET",
-          credentials: "include",
+          credentials: "include", //cookie 
         });
         const data = await res.json();
         if (data.cart) dispatch({ type: "set-cart", payload: data.cart });
@@ -66,7 +66,7 @@ export default function Cart() {
     }
   };
 
-  if (loading) return <p>Loading cart...</p>;
+ 
 
   async function updateQuantity(productId, action) {
     if (updating) return;
@@ -271,6 +271,15 @@ export default function Cart() {
 
   return (
     <div style={{ padding: "20px" }}>
+      {
+        loading?
+         <p>Loading cart...</p>
+        :
+      <>
+      
+  
+       
+
       <h2>Your Cart</h2>
 
       {/* Address Selection Section */}
@@ -667,7 +676,7 @@ export default function Cart() {
         <h3>Total Price: ₹{cart.totalPrice}</h3>
         <h3>Total Shipping: ₹{cart.totalShipping}</h3>
         <h2>Grand Total: ₹{cart.totalPrice + cart.totalShipping}</h2>
-
+  
         {cart.products.length > 0 && (
           <button
             onClick={proceedToCheckout}
@@ -687,8 +696,11 @@ export default function Cart() {
           >
             {loading ? "Processing..." : "Proceed to Checkout 🛒"}
           </button>
+      
         )}
+         
       </div>
+</>}
     </div>
   );
 }

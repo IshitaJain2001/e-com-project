@@ -17,6 +17,13 @@ const [cartt, setCart]= useState(0)
     
     // Backend se login check aur user info fetch
     const fetchUser = async () => {
+
+         dispatch({
+            type:"productAdd",
+            payload:{
+              isAdding: false
+            }
+          })
       try {
         const res = await fetch("http://localhost:3000/user/getProfile", {
           method: "GET",
@@ -38,23 +45,24 @@ setUserName(name)
             },
           });
 
-          dispatch({
+       
+        } else {
+          setUserName(""); 
+              dispatch({
             type:"productAdd",
             payload:{
               isAdding: false
             }
           })
-        } else {
-          setUserName("");
         }
       } catch (err) {
         console.error("Failed to fetch user:", err);
         setUserName("");
-      }
-    };
-
-    fetchUser();
+      } };
+     fetchUser();
   }, [ status]);
+
+
 
   return (
     <div className='navbar-container'>
