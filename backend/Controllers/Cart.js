@@ -56,7 +56,9 @@ let user= await User.findById(userId)
      
       });
       cart.itemsAdded +=1
-user.Cartvalue +=1 
+      
+      let newCart= user.Cartvalue+1
+   await User.findOneAndUpdate({_id:userId}, {Cartvalue:newCart })
     }
 
     cart.totalPrice = cart.products.reduce(

@@ -24,7 +24,7 @@ const [cartt, setCart]= useState(0)
         const data = await res.json();
         console.log(data);
         
-        setCart(data.Cartvalue)
+        setCart(data.user.Cartvalue)
         if (res.ok && data.user) {
           const name = data.user.firstName + " " + data.user.lastName;
 
@@ -67,7 +67,7 @@ const [cartt, setCart]= useState(0)
       <div className="right">
         <Link to="/cart">
           <button className={location.pathname==="/cart"?"active":""}>
-            <TiShoppingCart /><sup>{cartt || 0}</sup>
+            <TiShoppingCart /><sup>{cartt }</sup>
           </button>
         </Link>
         <Link to="/profile">

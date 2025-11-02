@@ -38,7 +38,7 @@ export async function signup(req, res) {
       userName,
       password: hashedPassword,
       picture: pictureUrl,
-      Cartvalue
+      Cartvalue 
     });
 
     await user.save();
@@ -88,7 +88,7 @@ export async function login(req, res) {
           firstName: user.firstName,
           lastName: user.lastName,
           userName: user.userName,
-          Cartvalue:Cartvalue
+          Cartvalue:user.Cartvalue
         },
       });
   } catch (error) {
@@ -188,6 +188,7 @@ export async function updateProfile(req, res) {
         lastName: user.lastName,
         userName: user.userName,
         picture: user.picture,
+        Cartvalue:user.Cartvalue
       },
     });
   } catch (error) {
