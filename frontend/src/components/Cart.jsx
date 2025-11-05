@@ -44,7 +44,7 @@ export default function Cart() {
       }
     };
     fetchCart();
-    fetchAddresses();
+    fetchAddresses(); 
   }, []);
 
   const fetchAddresses = async () => {
@@ -115,7 +115,7 @@ export default function Cart() {
       if (res.ok) {
         setOtpSent(true);
      
-        const otpDisplay = data.devOtp || data.otp;
+        const otpDisplay = data.devOtp ;
         alert(`✅ OTP Generated, Your OTP: ${otpDisplay} (For testing)`);
       } else {
         alert(data.message || "Failed to send OTP");
@@ -143,6 +143,7 @@ export default function Cart() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone: newAddress.phone, otp }),
       });
+    
 
       const data = await res.json();
 
