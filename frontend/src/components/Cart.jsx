@@ -211,9 +211,7 @@ export default function Cart() {
       console.error(err);
       alert("Something went wrong!");
     }
-    finally{
-      setOtpVerified(false)
-    }
+  
   };
 
   async function proceedToCheckout() {
