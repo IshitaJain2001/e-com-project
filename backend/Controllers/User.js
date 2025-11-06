@@ -79,7 +79,10 @@ export async function login(req, res) {
     let token = await jwt.sign({ id: user._id }, process.env.secret_key, {
       expiresIn: "1d",
     });
-    res.cookie("token", token)
+    res.cookie("token", token,{
+        secure: true,     
+      sameSite: "none",
+    })
       .json({
         message: "loggedin successfully ",
         isAdmin: false,
