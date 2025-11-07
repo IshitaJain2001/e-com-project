@@ -140,7 +140,7 @@ export async function logout(req, res) {
 return res.json({ message: "Logged out" });
 
 
-    res.status(200).json({ message: "Logged out successfully" });
+
   } catch (error) {
     res
       .status(500)
