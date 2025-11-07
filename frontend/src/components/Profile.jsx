@@ -90,12 +90,19 @@ function Profile() {
     }
 
     try {
-      const res = await fetch("https://e-com-project-1-db0p.onrender.com/user/signup", {
-        method: "POST",
-        credentials: "include",
-        body: formData,
+      const res = await fetch("https://e-com-project-msn4.onrender.com/user/signup", {
+      method: "POST",
+      credentials: "include",
+      body: formData,
       });
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        console.error("Invalid JSON response:", e);
+        alert("Server error: invalid response. Check console.");
+        return;
+      }
 
       if (res.status === 201) {
         setLoading(true);
@@ -130,16 +137,23 @@ function Profile() {
 
     try {
       const res = await fetch("https://e-com-project-1-db0p.onrender.com/user/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          userName: form.userName,
-          password: form.password,
-        }),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+      userName: form.userName,
+      password: form.password,
+      }),
       });
 
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        console.error("Invalid JSON response:", e);
+        alert("Server error: invalid response. Check console.");
+        return;
+      }
       if (res.ok) {
         setAttempts(0);
         setIsLoggedIn(true);
