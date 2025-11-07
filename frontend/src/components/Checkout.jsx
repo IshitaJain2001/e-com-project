@@ -11,7 +11,7 @@ export default function Checkout() {
   const [paymentMode, setPaymentMode] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Generate random customer number
+
   const customerNumber = Math.floor(Math.random() * 1000000000);
 
   if (!cart || !selectedAddress) {
@@ -52,7 +52,12 @@ export default function Checkout() {
       });
 
       const data = await res.json();
-
+      dispatch({
+            type:"productAdd",
+            payload:{
+              isAdding: false
+            }
+          })
       if (res.ok) {
         alert(`Order placed successfully! Customer Number: ${customerNumber}`);
         dispatch({
