@@ -55,7 +55,7 @@ export default function Checkout() {
       dispatch({
             type:"productAdd",
             payload:{
-              isAdding: false
+              isAdding: true
             }
           })
       if (res.ok) {
