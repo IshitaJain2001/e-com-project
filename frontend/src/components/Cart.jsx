@@ -238,6 +238,7 @@ async function deleteAdd(id) {
   try {
     const res = await fetch(`https://e-com-project-msn4.onrender.com/address/delete/${id}`, {
       method: "DELETE",
+        credentials: "include",
     });
 
     if (res.ok) {
