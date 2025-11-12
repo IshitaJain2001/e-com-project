@@ -12,6 +12,7 @@ import cartRouter from "./Routers/Cart.js";
 import orderRouter from "./Routers/Order.js";
 import addressRouter from "./Routers/Address.js";
 import otpRouter from "./Routers/Otp.js";
+import router from "./Routers/Pyament.js";
 
 dotenv.config();
 
@@ -31,6 +32,8 @@ app.use(
   })
 );
 
+
+
 app.use(cookieParser());
 app.use(express.json());
 
@@ -41,6 +44,8 @@ app.use("/order", orderRouter);
 app.use("/address", addressRouter);
 app.use("/otp", otpRouter);
 
+
+app.use("/payment", router);
 app.listen(process.env.PORT, () => {
   console.log("✅ Server started on port", process.env.PORT);
 });

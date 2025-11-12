@@ -11,21 +11,15 @@ export default function Checkout() {
   const [paymentMode, setPaymentMode] = useState("");
   const [loading, setLoading] = useState(false);
 
-
   const customerNumber = Math.floor(Math.random() * 1000000000);
 
   if (!cart || !selectedAddress) {
-    return <p>Error: Missing cart or address data.</p>;
+    return <p style={{ textAlign: "center", marginTop: "50px" }}>⚠️ Error: Missing cart or address data.</p>;
   }
 
   const handlePlaceOrder = async () => {
     if (!paymentMode) {
       alert("Please select a payment mode.");
-      return;
-    }
-
-    if (paymentMode === "online") {
-      alert("Online payment coming soon!");
       return;
     }
 
@@ -53,11 +47,10 @@ export default function Checkout() {
 
       const data = await res.json();
       dispatch({
-            type:"productAdd",
-            payload:{
-              isAdding: true
-            }
-          })
+        type: "productAdd",
+        payload: { isAdding: true },
+      });
+
       if (res.ok) {
         alert(`Order placed successfully! Customer Number: ${customerNumber}`);
         dispatch({
@@ -77,35 +70,53 @@ export default function Checkout() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Checkout</h2>
+    <div
+      style={{
+        padding: "30px",
+        maxWidth: "700px",
+        margin: "40px auto",
+        borderRadius: "10px",
+        backgroundColor: "#fff",
+        boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <h2 style={{ textAlign: "center", marginBottom: "30px" }}>🛒 Checkout</h2>
 
-      {/* Delivery Address */}
-      <div style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "20px" }}>
-        <h3>Delivery Address</h3>
+      {/* Address */}
+      <section style={sectionStyle}>
+        <h3 style={headingStyle}>Delivery Address</h3>
         <p><strong>{selectedAddress.fullName}</strong></p>
         <p>{selectedAddress.phone}</p>
-        <p>{selectedAddress.addressLine1}{selectedAddress.addressLine2 ? `, ${selectedAddress.addressLine2}` : ""}</p>
+        <p>
+          {selectedAddress.addressLine1}
+          {selectedAddress.addressLine2 ? `, ${selectedAddress.addressLine2}` : ""}
+        </p>
         <p>{selectedAddress.city}, {selectedAddress.state} - {selectedAddress.zipCode}</p>
-      </div>
+      </section>
 
-      {/* Cart Summary */}
-      <div style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "20px" }}>
-        <h3>Order Summary</h3>
+      {/* Summary */}
+      <section style={sectionStyle}>
+        <h3 style={headingStyle}>Order Summary</h3>
         {cart.products.map((p, idx) => (
-          <div key={idx} style={{ marginBottom: "10px" }}>
-            <p>{p.item.productName} - Qty: {p.qty} - ₹{p.price}</p>
+          <div key={idx} style={summaryItem}>
+            <p>{p.item.productName}</p>
+            <p>Qty: {p.qty}</p>
+            <p>₹{p.price}</p>
           </div>
         ))}
-        <p><strong>Total Price: ₹{cart.totalPrice}</strong></p>
+        <hr />
+        <p><strong>Total: ₹{cart.totalPrice}</strong></p>
         <p><strong>Shipping: ₹{cart.totalShipping}</strong></p>
-        <p><strong>Grand Total: ₹{cart.totalPrice + cart.totalShipping}</strong></p>
-      </div>
+        <p style={{ fontSize: "18px" }}>
+          <strong>Grand Total: ₹{cart.totalPrice + cart.totalShipping}</strong>
+        </p>
+      </section>
 
-      {/* Payment Mode */}
-      <div style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "20px" }}>
-        <h3>Payment Mode</h3>
-        <label>
+      {/* Payment */}
+      <section style={sectionStyle}>
+        <h3 style={headingStyle}>Payment Mode</h3>
+        <label style={radioLabel}>
           <input
             type="radio"
             value="cod"
@@ -114,8 +125,7 @@ export default function Checkout() {
           />
           Cash on Delivery (COD)
         </label>
-        <br />
-        <label>
+        <label style={radioLabel}>
           <input
             type="radio"
             value="online"
@@ -124,16 +134,31 @@ export default function Checkout() {
           />
           Online Payment (Coming Soon)
         </label>
-      </div>
+      </section>
 
       {/* Terms */}
-      <div style={{ border: "1px solid #ccc", padding: "10px", marginBottom: "20px" }}>
-        <h3>Terms and Conditions</h3>
+      <section style={sectionStyle}>
+        <h3 style={headingStyle}>Terms & Conditions</h3>
         <p>Beyond 7 days you can't exchange and no return possible.</p>
         <p>Your Customer Number: <strong>{customerNumber}</strong></p>
-      </div>
+      </section>
 
-      <button onClick={handlePlaceOrder} disabled={loading} style={{ padding: "10px 20px", backgroundColor: "#4CAF50", color: "white", border: "none", cursor: "pointer" }}>
+      <button
+        onClick={handlePlaceOrder}
+        disabled={loading}
+        style={{
+          width: "100%",
+          padding: "12px",
+          backgroundColor: loading ? "#ccc" : "#4CAF50",
+          color: "white",
+          fontSize: "16px",
+          fontWeight: "bold",
+          border: "none",
+          borderRadius: "8px",
+          cursor: loading ? "not-allowed" : "pointer",
+          transition: "background 0.3s",
+        }}
+      >
         {loading ? "Placing Order..." : "Place Order"}
       </button>
     </div>
